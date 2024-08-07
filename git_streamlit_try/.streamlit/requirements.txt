@@ -1,4 +1,4 @@
 streamlit
 pandas
 numpy
-sqlalchemy
+sqlalchemy==2.0.31
