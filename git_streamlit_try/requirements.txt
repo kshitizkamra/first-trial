@@ -6,4 +6,3 @@ altair
 plotly
 datetime
 psycopg2-binary
-mysqlclient
