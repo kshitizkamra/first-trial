@@ -1,4 +1,8 @@
 streamlit
 pandas
 numpy
-sqlalchemy==2.0.31
+sqlalchemy
+altair
+plotly
+datetime
+psycopg2-binary
