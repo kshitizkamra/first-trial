@@ -166,7 +166,7 @@ try :
 
 
     if len(search_style_code)>0 :
-       db_sales_final=db_sales_final[(db_sales_summary['vendor style code'].isin(search_style_code))]
+       db_sales_final=db_sales_final_1[(db_sales_final_1['vendor style code'].isin(search_style_code))]
        st.session_state['page_number'] = 1
     else :
         db_sales_final=db_sales_final_1.copy()
