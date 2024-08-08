@@ -191,7 +191,7 @@ with col2:
        db_actual_action=db_actual_action.drop_duplicates()
        engine = create_engine('postgresql://90northbrands:90northbrands@34.41.36.17:5432/myntra_roi')
        db_actual_action.to_sql(
-        name="styles_action", # table name
+        name="actual_actions", # table name
         con=engine,  # engine
         if_exists="replace", #  If the table already exists, append
         index=False # no index
