@@ -6,4 +6,4 @@ altair
 plotly
 datetime
 psycopg2-binary
-st-gsheets-connection
+
