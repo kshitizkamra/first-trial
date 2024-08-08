@@ -38,7 +38,7 @@ actual_actions_selling_price=db_actual_actions_selling_price['selling_price'].va
 actual_actions_pla=db_actual_actions_pla['pla'].values.tolist()
 actual_actions_replenishment=db_actual_actions_replenishment['replenishment'].values.tolist()
 
-engine = create_engine('postgresql://90northbrands:90northbrands@localhost:5432/myntra_roi')
+engine = create_engine('postgresql://90northbrands:90northbrands@34.41.36.17:5432/myntra_roi')
 meta = MetaData()
 meta.reflect(bind=engine)
 
