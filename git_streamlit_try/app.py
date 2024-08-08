@@ -1,4 +1,6 @@
 import streamlit as st
+import numpy as np
+import pandas as pd
 from streamlit_gsheets import GSheetsConnection
 
 # Create a connection object.
