@@ -21,6 +21,13 @@ st.set_page_config(
 alt.themes.enable("dark")
 
 conn = st.connection("my_database")
+
+
+
+db_settlement_1234=conn.query("select * from trial_1;")
+db_settlement_1234
+
+
 db_master=conn.query("select * from styles_master;")
 
 
