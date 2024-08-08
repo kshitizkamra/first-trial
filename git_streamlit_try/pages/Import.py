@@ -40,6 +40,9 @@ with col1:
     "Upload Style action Files ", accept_multiple_files=True
     )
 
+    uploaded_actual_action = st.file_uploader(
+    "Upload actual action Files ", accept_multiple_files=True
+    )
 
 
 
@@ -180,7 +183,7 @@ with col2:
           db_actual_action_original=conn.query("select * from actual_actions;")
        except :
           db_actual_action_original=pd.DataFrame()
-       for filename in uploaded_action:
+       for filename in uploaded_actual_action:
         df = pd.read_csv(filename, index_col=None, header=0)
         db_actual_action = pd.concat([db_actual_action, df], ignore_index=True, sort=False)
        db_actual_action.columns = [x.lower() for x in db_actual_action.columns]
