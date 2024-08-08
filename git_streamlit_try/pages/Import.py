@@ -174,7 +174,7 @@ with col2:
     st.write("")
     st.write("")
     
-    if st.button('Upload',key="action_btn"):
+    if st.button('Upload',key="actual_action_btn"):
        db_actual_action=pd.DataFrame()
        try :
           db_actual_action_original=conn.query("select * from actual_actions;")
