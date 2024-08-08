@@ -151,9 +151,27 @@ def get_selected_attributes():
 checkbox_container(attributes)
 st.divider()
 
-
+db_sales_final_1=db_sales_final.copy()
 
 try :
+    db_search_style_code=db_sales_final['vendor style code'].drop_duplicates()
+    search_style_code_list = db_search_style_code.values.tolist()
+    search_style_code = st.multiselect(
+      "Search/Select Style Code",
+      search_style_code_list,
+      placeholder="Search/Select Style Code",
+      label_visibility='collapsed'
+    )
+
+
+
+    if len(search_style_code)>0 :
+       db_sales_final=db_sales_final[(db_sales_summary['vendor style code'].isin(search_style_code))]
+       st.session_state['page_number'] = 1
+    else :
+        db_sales_final=db_sales_final_1.copy()
+        
+    st.divider()
     selected_attribute=get_selected_attributes()
     selected_attribute.append('week')
     selected_attribute.append('date_range')
