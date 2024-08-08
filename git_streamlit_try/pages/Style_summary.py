@@ -137,28 +137,12 @@ db_sales_summary['unit_p/l']=db_sales_summary['unit_settled_amount']-db_sales_su
 db_sales_summary['roi']=db_sales_summary['profit_value']/db_sales_summary['cost']
    
 db_sales_summary['return %']=db_sales_summary['returns']/db_sales_summary['total_orders']
+
+
+
+
 db_sales_summary.reset_index(inplace=True)
 
-
-st.markdown(
-    """
-    <style>
-        [data-testid="column"] 
-        {
-            border:2px solid ;
-
-            
-            text-align:center;
-            gap: 0rem;
-            font-size: 7px;
-            align:center;
-        } 
-        [data-testid="container"]
-       text-align:center; }
-        
-    </style>
-    """,unsafe_allow_html=True
-) 
 
 st.markdown(
     """
@@ -168,14 +152,37 @@ st.markdown(
     """,unsafe_allow_html=True
 )
 
-col1,col2=st.columns(2,gap='small')
-pd.set_option('display.max_colwidth', None)
+
 db_sales_summary=db_sales_summary.round(2)
 db_sales_summary['roi'] = db_sales_summary['roi'].map('{:.0%}'.format)
 db_sales_summary['return %'] = db_sales_summary['return %'].map('{:.0%}'.format)
-
 db_sales_summary=db_sales_summary.sort_values('successful_orders',ascending=False)
+
+
+
+db_sales_summary_1=db_sales_summary.copy()
+db_sales_summary=db_sales_summary['vendor style code'].drop_duplicates()
+search_style_code_list = db_sales_summary.values.tolist()
+search_style_code = st.multiselect(
+      "Search/Select Style Code",
+      search_style_code_list,
+      placeholder="Search/Select Style Code",
+      label_visibility='collapsed'
+    )
+if len(search_style_code)>0 :
+       db_sales_summary=db_sales_summary_1[(db_sales_summary_1['vendor style code'].isin(search_style_code))]
+else :
+        db_sales_summary=db_sales_summary_1.copy()
+st.divider()
+
+
+
+col1,col2=st.columns(2,gap='small')
+pd.set_option('display.max_colwidth', None)
+
 db_sales_summary=db_sales_summary.reset_index()
+db_sales_summary.index += 1
+db_sales_summary=db_sales_summary.drop(['index'],axis=1)
 
 for index,rows in db_sales_summary.iterrows():
      db_style_summary=db_sales_summary.loc[index]
@@ -183,29 +190,35 @@ for index,rows in db_sales_summary.iterrows():
      db_style_unit_summary=db_sales_summary.loc[index]
      db_style_unit_summary=db_style_unit_summary.drop(['vendor style code','brand','article type','fabric','collection name','gender','image link','total_orders','successful_orders','returns','customer_paid_amount','taxes','commission','logistics','settled_amount','cost','profit_value'])
     
-     if np.remainder(index,2)==0 :
+
+
+     if np.remainder(index,2)==1 :
           with col1 :
-               with st.container() :
-                st.image(db_sales_summary.loc[index,'image link'], width=250)
-                sub_col1,sub_col2=st.columns(2)
-                with sub_col1:
+             with st.container(border=True):
+               subcol1,subcol2,subcol3=st.columns([1.15,2,1.15])
+               with subcol2 :
+                   
+                    st.image(db_sales_summary.loc[index,'image link'], width=250)
+               sub_col1,sub_col2=st.columns(2)
+               with sub_col1:
                     st.dataframe(db_style_summary)
-                with sub_col2:
+               with sub_col2:
                     st.dataframe(db_style_unit_summary)
 
-                st.divider()
+          
 
      
      else :
           with col2 :
-               with st.container() :
-                st.image(db_sales_summary.loc[index,'image link'], width=250)
-                sub_col1,sub_col2=st.columns(2)
-                with sub_col1:
+              with st.container(border=True):
+               subcol1,subcol2,subcol3=st.columns([1.15,2,1.15])
+               with subcol2 :
+                   
+                    st.image(db_sales_summary.loc[index,'image link'], width=250)
+               sub_col1,sub_col2=st.columns(2)
+               with sub_col1:
                     st.dataframe(db_style_summary)
-                with sub_col2:
+               with sub_col2:
                     st.dataframe(db_style_unit_summary)
 
-                st.divider()
-
-     
+          
