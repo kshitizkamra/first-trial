@@ -166,3 +166,30 @@ with col2:
         )
        
 
+   
+    st.write("")
+    st.write("")
+    st.write("")
+    st.write("")
+    st.write("")
+    st.write("")
+    
+    if st.button('Upload',key="action_btn"):
+       db_actual_action=pd.DataFrame()
+       try :
+          db_actual_action_original=conn.query("select * from actual_actions;")
+       except :
+          db_actual_action_original=pd.DataFrame()
+       for filename in uploaded_action:
+        df = pd.read_csv(filename, index_col=None, header=0)
+        db_actual_action = pd.concat([db_actual_action, df], ignore_index=True, sort=False)
+       db_actual_action.columns = [x.lower() for x in db_actual_action.columns]
+       db_actual_action=pd.concat([db_actual_action,db_actual_action_original],ignore_index=True)
+       db_actual_action=db_actual_action.drop_duplicates()
+       engine = create_engine('postgresql://90northbrands:90northbrands@34.41.36.17:5432/myntra_roi')
+       db_actual_action.to_sql(
+        name="styles_action", # table name
+        con=engine,  # engine
+        if_exists="replace", #  If the table already exists, append
+        index=False # no index
+        )
