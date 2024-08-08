@@ -11,6 +11,10 @@ import plotly.express as px
 
 conn = st.connection("my_database")
 
+db_settlement_1234=conn.query("select * from trial_1;")
+db_settlement_1234
+
+
 
 
 
